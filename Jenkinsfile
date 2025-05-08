@@ -8,14 +8,14 @@ pipeline {
     stages {
         stage('Checkout Source') {
             steps {
-                git branch: 'main', url: 'https://github.com/scaler-bhavya/jenkins-k8s-docker.git'
+                git branch: 'main', url: 'https://github.com/shubhamgrover1/jenkins-k8s-docker.git'
             }
         }
 
         stage('Build Image') {
             steps {
                 script {
-                    sh 'docker build -t bhavyascaler/react-app:latest .'
+                    sh 'docker build -t shubhamgrover1/react-app:latest .'
                 }
             }
         }
@@ -31,7 +31,7 @@ pipeline {
 
         stage('Push') {
             steps {
-                sh 'docker push bhavyascaler/react-app:latest'
+                sh 'docker push shubhamgrover1/react-app:latest'
             }
         }
 
