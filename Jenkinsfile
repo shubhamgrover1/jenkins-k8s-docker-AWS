@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        AWS_DEFAULT_REGION = "us-east-1"
-    }
-
     stages {
         stage('Checkout Source') {
             steps {
@@ -19,6 +15,7 @@ pipeline {
                 }
             }
         }
+
         stage('Login') {
             steps {
                 script {
@@ -35,22 +32,13 @@ pipeline {
             }
         }
 
-        stage("Deploy to EKS") {
+        stage("Deploy to k3s") {
             steps {
                 script {
-                    withCredentials([
-                        [$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials', 
-                         accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
-                         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'],
-        
-                    ]) {
-                        sh """
-                          echo "Updating kubeconfig..."
-                          aws eks update-kubeconfig --name amcdemo --region ${AWS_DEFAULT_REGION}
-                          kubectl apply -f deployment.yaml
-                          kubectl apply -f service.yaml
-                        """
-                    }
+                    sh """
+                      kubectl apply -f deployment.yaml
+                      kubectl apply -f service.yaml
+                    """
                 }
             }
         }
