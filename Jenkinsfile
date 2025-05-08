@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Checkout Source') {
             steps {
-                git branch: 'main', url: 'https://github.com/shubhamgrover1/jenkins-k8s-docker.git'
+                git branch: 'main', url: 'https://github.com/shubhamgrover1/jenkins-k8s-docker-copy.git'
             }
         }
 
